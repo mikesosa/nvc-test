@@ -3,7 +3,7 @@ import { Layout } from 'antd';
 import HeaderNav from '../../organisms/HeaderNav';
 import { node, string } from 'prop-types';
 
-const { Footer, Content } = Layout;
+const { Content } = Layout;
 
 function MainLayout({ children }) {
   return (
@@ -12,7 +12,6 @@ function MainLayout({ children }) {
       <Content style={{ padding: '2rem', minHeight: '280px' }}>
         {children}
       </Content>
-      <Footer>Footer</Footer>
     </Layout>
   );
 }
