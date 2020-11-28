@@ -1,4 +1,7 @@
 .header-nav {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -9,8 +12,12 @@
     margin-bottom: 0px;
   }
   .menu-search {
-    float: right;
+    display: flex;
+    align-items: center;
     margin-right: 2rem;
     height: 2rem;
+    .demo-loading-container {
+      margin-right: 1rem;
+    }
   }
 }
