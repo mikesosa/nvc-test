@@ -1,66 +1,76 @@
-import React from 'react';
-import { Card, List } from 'antd';
+import React, { useState } from 'react';
+import { List, Spin, message } from 'antd';
+import { useDispatch } from 'react-redux';
 import MainLayout from '../../components/templates/MainLayout';
-// import InfiniteScroll from 'react-infinite-scroller';
+import ShowCard from '../../components/organisms/ShowCard';
+import InfiniteScroll from 'react-infinite-scroller';
+import { getShows } from '../../store/slices/shows';
 
-const { Meta } = Card;
 function Home() {
-  const data = [
-    {
-      title: 'Title 1'
-    },
-    {
-      title: 'Title 2'
-    },
-    {
-      title: 'Title 3'
-    },
-    {
-      title: 'Title 4'
-    },
-    {
-      title: 'Title 1'
-    },
-    {
-      title: 'Title 2'
-    },
-    {
-      title: 'Title 3'
-    },
-    {
-      title: 'Title 4'
-    },
-    {
-      title: 'Title 1'
-    },
-    {
-      title: 'Title 2'
-    },
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
+  const [data, setData] = useState([]);
+  const dispatch = useDispatch();
 
-    {
-      title: 'Title 4'
+  // useEffect;
+
+  const fetchData = async () => {
+    try {
+      let res = await dispatch(getShows());
+      setData(res);
+    } catch (e) {
+      message.error(e);
     }
-  ];
+    // reqwest({
+    //   url: fakeDataUrl,
+    //   type: 'json',
+    //   method: 'get',
+    //   contentType: 'application/json',
+    //   success: (res) => {
+    //     callback(res);
+    //   }
+    // });
+  };
+
+  const handleInfiniteOnLoad = () => {
+    setLoading(true);
+    if (data.length > 14) {
+      message.warning('Infinite List loaded all');
+      setLoading(false);
+      setHasMore(false);
+      return;
+    }
+    fetchData((res) => {
+      this.setState({
+        data,
+        loading: res
+      });
+    });
+  };
+
   return (
     <MainLayout>
-      <List
-        grid={{ gutter: 16, column: 4 }}
-        dataSource={data}
-        renderItem={(item) => (
-          <List.Item>
-            <Card
-              hoverable
-              cover={
-                <img
-                  alt="example"
-                  src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-                />
-              }>
-              <Meta title={item.title} />
-            </Card>
-          </List.Item>
-        )}
-      />
+      <InfiniteScroll
+        initialLoad={false}
+        pageStart={0}
+        loadMore={handleInfiniteOnLoad}
+        hasMore={!loading && hasMore}
+        useWindow={false}>
+        <List
+          grid={{ gutter: 16, column: 4 }}
+          dataSource={data}
+          renderItem={(item) => (
+            <List.Item>
+              <ShowCard item={item} />
+            </List.Item>
+          )}>
+          {loading && hasMore && (
+            <div className="demo-loading-container">
+              <Spin />
+            </div>
+          )}
+        </List>
+      </InfiniteScroll>
       ,
     </MainLayout>
   );
