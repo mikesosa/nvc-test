@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { SEARCH_ALL } from '../../utils/constants';
+import { SEARCH_ALL, GET_DETAIL, API_KEY } from '../../utils/constants';
 import { ApiClientSingleton } from '../../utils';
 
 const apiClient = ApiClientSingleton.getApiInstance();
@@ -7,6 +7,7 @@ const apiClient = ApiClientSingleton.getApiInstance();
 const showsState = {
   shows: [],
   pages: {},
+  showDetail: null,
   searchQuery: '',
   loadingShows: false,
   errorShows: null,
@@ -37,6 +38,19 @@ const slice = createSlice({
     },
     setSearchQuery: (state, { payload }) => {
       state.searchQuery = payload;
+    },
+    fetchingDetailStarted: (state) => {
+      state.loadingShows = true;
+    },
+    fetchingDetailSuccess: (state, { payload }) => {
+      state.showDetail = payload;
+      state.loadingShows = false;
+      state.errorShows = null;
+    },
+    fetchingDetailError: (state, { payload }) => {
+      state.showDetail = null;
+      state.errorShows = payload;
+      state.loadingShows = false;
     }
   },
   extraReducers: {}
@@ -48,7 +62,10 @@ const {
   fetchingShowsStarted,
   fetchingShowsSuccess,
   fetchingShowsError,
-  setSearchQuery
+  setSearchQuery,
+  fetchingDetailStarted,
+  fetchingDetailSuccess,
+  fetchingDetailError
   // reset
 } = slice.actions;
 
@@ -65,5 +82,17 @@ export const getShows = ({ searchQuery, searchPage }) => async (dispatch) => {
     dispatch(fetchingShowsSuccess(res.data));
   } catch (e) {
     dispatch(fetchingShowsError(e.message));
+  }
+};
+
+export const getDetail = (payload) => async (dispatch) => {
+  dispatch(fetchingDetailStarted());
+  try {
+    const res = await apiClient.get(
+      `${GET_DETAIL}/${payload}?api_key=${API_KEY}&external_source=imdb_id`
+    );
+    dispatch(fetchingDetailSuccess(res.data));
+  } catch (e) {
+    dispatch(fetchingDetailError(e.message));
   }
 };

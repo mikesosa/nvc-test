@@ -8,8 +8,8 @@ const { Content } = Layout;
 function MainLayout({ children }) {
   return (
     <Layout>
-      <HeaderNav>Hi</HeaderNav>
-      <Content style={{ padding: '6rem 2rem 2rem 2rem', minHeight: '280px' }}>
+      <HeaderNav />
+      <Content style={{ padding: '6rem 2rem 2rem 2rem', minHeight: '100vh' }}>
         {children}
       </Content>
     </Layout>

@@ -37,7 +37,12 @@ function Home() {
 
   const handleInfiniteOnLoad = () => {
     if (pages.total_pages === pages.currentPage) {
-      message.warning('Infinite List loaded all');
+      message.warning({
+        content: 'All results loaded',
+        style: {
+          marginTop: '90vh'
+        }
+      });
     } else {
       fetchShows(pages.currentPage + 1);
     }

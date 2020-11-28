@@ -4,7 +4,9 @@ import EmptyLayout from '../../components/templates/EmptyLayout';
 function NotFound() {
   return (
     <EmptyLayout>
-      <p>Not found</p>
+      <p>
+        404 page not found <a href="/">go home</a>
+      </p>
     </EmptyLayout>
   );
 }
