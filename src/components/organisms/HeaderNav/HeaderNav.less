@@ -6,10 +6,27 @@
   justify-content: space-between;
   align-items: center;
   .logo {
-    float: left;
-    color: #ffffff;
+    display: flex;
+    align-items: center;
     font-size: 2rem;
     margin-bottom: 0px;
+    a:first-child {
+      transition: all 0.3s ease-in-out;
+      color: #ffffff;
+      &:hover {
+        color: #ffffff9c;
+        transform: translateY(-3px);
+      }
+    }
+    .return-btn {
+      color: #ffffff;
+      transition: all 0.3s ease-in-out;
+      margin-left: 1rem;
+      &:hover {
+        color: #ffffff9c;
+        transform: translateY(-3px);
+      }
+    }
   }
   .menu-search {
     display: flex;

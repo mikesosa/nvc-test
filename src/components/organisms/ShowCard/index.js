@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { Card } from 'antd';
 import { object } from 'prop-types';
 import './ShowCard.less';
+import { setSelectedShow } from '../../../store/slices/shows';
 
 const { Meta } = Card;
 
 function ShowCard({ item }) {
+  const dispatch = useDispatch();
   const [showDescription, setShowDescription] = useState(false);
   let defatult = '/v5D7K4EHuQHFSjveq8LGxdSfrGS.jpg';
   const history = useHistory();
   const { path } = useRouteMatch();
 
-  const handleCick = (show) => {
+  const handleCick = async (show) => {
+    await dispatch(setSelectedShow(show));
     history.push(`${path}detail/${show.id}`);
   };
 

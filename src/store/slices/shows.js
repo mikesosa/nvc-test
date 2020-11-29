@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { SEARCH_ALL, GET_DETAIL, API_KEY } from '../../utils/constants';
+import { SEARCH_ALL, API_KEY, API_BASE_URL } from '../../utils/constants';
 import { ApiClientSingleton } from '../../utils';
 
 const apiClient = ApiClientSingleton.getApiInstance();
@@ -7,7 +7,9 @@ const apiClient = ApiClientSingleton.getApiInstance();
 const showsState = {
   shows: [],
   pages: {},
+  seasonDetail: null,
   showDetail: null,
+  selectedShow: null,
   searchQuery: '',
   loadingShows: false,
   errorShows: null,
@@ -18,6 +20,9 @@ const slice = createSlice({
   name: 'shows',
   initialState: showsState,
   reducers: {
+    setSelected: (state, { payload }) => {
+      state.selectedShow = payload;
+    },
     fetchingShowsStarted: (state) => {
       state.loadingShows = true;
     },
@@ -51,6 +56,19 @@ const slice = createSlice({
       state.showDetail = null;
       state.errorShows = payload;
       state.loadingShows = false;
+    },
+    fetchingSeasonStarted: (state) => {
+      state.loadingShows = true;
+    },
+    fetchingSeasonSuccess: (state, { payload }) => {
+      state.seasonDetail = payload;
+      state.loadingShows = false;
+      state.errorShows = null;
+    },
+    fetchingSeasonError: (state, { payload }) => {
+      state.seasonDetail = null;
+      state.errorShows = payload;
+      state.loadingShows = false;
     }
   },
   extraReducers: {}
@@ -65,7 +83,11 @@ const {
   setSearchQuery,
   fetchingDetailStarted,
   fetchingDetailSuccess,
-  fetchingDetailError
+  fetchingDetailError,
+  fetchingSeasonStarted,
+  fetchingSeasonError,
+  fetchingSeasonSuccess,
+  setSelected
   // reset
 } = slice.actions;
 
@@ -85,14 +107,30 @@ export const getShows = ({ searchQuery, searchPage }) => async (dispatch) => {
   }
 };
 
-export const getDetail = (payload) => async (dispatch) => {
+export const getDetail = ({ showId, mediaType }) => async (dispatch) => {
   dispatch(fetchingDetailStarted());
   try {
     const res = await apiClient.get(
-      `${GET_DETAIL}/${payload}?api_key=${API_KEY}&external_source=imdb_id`
+      `${API_BASE_URL}/${mediaType}/${showId}?api_key=${API_KEY}&external_source=imdb_id`
     );
     dispatch(fetchingDetailSuccess(res.data));
   } catch (e) {
     dispatch(fetchingDetailError(e.message));
   }
+};
+
+export const getSeason = ({ tvId, seasonNumber }) => async (dispatch) => {
+  dispatch(fetchingSeasonStarted());
+  try {
+    const res = await apiClient.get(
+      `${API_BASE_URL}/tv/${tvId}/season/${seasonNumber}?api_key=${API_KEY}`
+    );
+    dispatch(fetchingSeasonSuccess(res.data));
+  } catch (e) {
+    dispatch(fetchingSeasonError(e.message));
+  }
+};
+
+export const setSelectedShow = (payload) => async (dispatch) => {
+  dispatch(setSelected(payload));
 };
