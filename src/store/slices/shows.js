@@ -107,6 +107,7 @@ export const getShows = ({ searchQuery, searchPage }) => async (dispatch) => {
   }
 };
 
+// Get a show in detail
 export const getDetail = ({ showId, mediaType }) => async (dispatch) => {
   dispatch(fetchingDetailStarted());
   try {
@@ -119,6 +120,7 @@ export const getDetail = ({ showId, mediaType }) => async (dispatch) => {
   }
 };
 
+// Get a season detail
 export const getSeason = ({ tvId, seasonNumber }) => async (dispatch) => {
   dispatch(fetchingSeasonStarted());
   try {
@@ -131,6 +133,7 @@ export const getSeason = ({ tvId, seasonNumber }) => async (dispatch) => {
   }
 };
 
+// Set the selected show globally
 export const setSelectedShow = (payload) => async (dispatch) => {
   dispatch(setSelected(payload));
 };

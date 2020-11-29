@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Tabs, List, Avatar } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
 import { FireOutlined } from '@ant-design/icons';
 import { useRouteMatch } from 'react-router-dom';
-import { getDetail, showsSelector, getSeason } from '../../store/slices/shows';
+import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from '../../components/templates/MainLayout';
+import { getDetail, showsSelector, getSeason } from '../../store/slices/shows';
 import './ShowDetail.less';
 
 const { Meta } = Card;
@@ -23,6 +23,7 @@ function ShowDetail() {
     errorShows
   } = useSelector(showsSelector);
 
+  // Get selected show detail
   const fetchDetail = async () => {
     try {
       dispatch(
@@ -37,6 +38,7 @@ function ShowDetail() {
     }
   };
 
+  // In case of tv show get specific season
   const fetchSeason = async (tvId, seasonNumber) => {
     try {
       dispatch(
@@ -51,18 +53,22 @@ function ShowDetail() {
     }
   };
 
+  // Call fetch details on load
   useEffect(() => {
     fetchDetail();
   }, []);
 
+  // If detail then set them locally in the component to better performance
   useEffect(() => {
     if (showDetail) setDetails(showDetail);
   }, [showDetail]);
 
+  // If a tv show call fetch season
   useEffect(() => {
     if (details) fetchSeason(details.id, parseInt(selectedSeason) + 1);
   }, [selectedSeason, details]);
 
+  // TV show details
   const tvDetail = () => (
     <Tabs
       type="card"
@@ -101,6 +107,7 @@ function ShowDetail() {
     </Tabs>
   );
 
+  // Movie details
   const movieDetail = () => {
     return (
       <>

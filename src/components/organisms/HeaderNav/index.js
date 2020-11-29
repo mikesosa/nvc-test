@@ -1,10 +1,10 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Layout, Input, Spin } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouteMatch, useHistory } from 'react-router-dom';
 import { getShows, showsSelector } from '../../../store/slices/shows';
 import { LoadingOutlined, LeftCircleOutlined } from '@ant-design/icons';
 import './HeaderNav.less';
-import { useRouteMatch, useHistory } from 'react-router-dom';
 
 const { Search } = Input;
 const { Header } = Layout;
@@ -14,11 +14,14 @@ function HeaderNav() {
   const history = useHistory();
   const dispatch = useDispatch();
   const { loadingShows } = useSelector(showsSelector);
+  const antIcon = <LoadingOutlined style={{ color: '#FFF' }} spin />;
+
+  // Handle search
   const onSearch = (value) => {
     if (path !== '/') history.push('/');
     if (value) dispatch(getShows({ searchQuery: value, searchPage: 1 }));
   };
-  const antIcon = <LoadingOutlined style={{ color: '#FFF' }} spin />;
+
   return (
     <Header className="header-nav">
       <div className="logo">

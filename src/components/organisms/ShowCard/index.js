@@ -1,28 +1,29 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useHistory, useRouteMatch } from 'react-router-dom';
 import { Card } from 'antd';
 import { object } from 'prop-types';
-import './ShowCard.less';
+import { useDispatch } from 'react-redux';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import { setSelectedShow } from '../../../store/slices/shows';
+import './ShowCard.less';
 
 const { Meta } = Card;
 
 function ShowCard({ item }) {
-  const dispatch = useDispatch();
-  const [showDescription, setShowDescription] = useState(false);
-  let defatult = '/v5D7K4EHuQHFSjveq8LGxdSfrGS.jpg';
   const history = useHistory();
+  const dispatch = useDispatch();
   const { path } = useRouteMatch();
+  const defaultImg = '/v5D7K4EHuQHFSjveq8LGxdSfrGS.jpg'; // Fallback img
+  const [showDescription, setShowDescription] = useState(false);
 
-  const handleCick = async (show) => {
+  // Handle click on show
+  const handleClick = async (show) => {
     await dispatch(setSelectedShow(show));
     history.push(`${path}detail/${show.id}`);
   };
 
   return (
     <Card
-      onClick={() => handleCick(item)}
+      onClick={() => handleClick(item)}
       hoverable
       onMouseEnter={() => setShowDescription(true)}
       onMouseLeave={() => setShowDescription(false)}
@@ -34,7 +35,7 @@ function ShowCard({ item }) {
               ? item.poster_path
               : item.backdrop_path
               ? item.backdrop_path
-              : defatult
+              : defaultImg
           }`}
         />
       }>

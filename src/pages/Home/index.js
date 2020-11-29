@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { List, message } from 'antd';
+import InfiniteScroll from 'react-infinite-scroller';
 import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from '../../components/templates/MainLayout';
 import ShowCard from '../../components/organisms/ShowCard';
-import InfiniteScroll from 'react-infinite-scroller';
 import { getShows, showsSelector } from '../../store/slices/shows';
 import './Home.less';
 
@@ -12,6 +12,7 @@ function Home() {
   const [showsList, setShowsList] = useState([]);
   const { searchQuery, shows, pages } = useSelector(showsSelector);
 
+  // Concatenate more results on scrolling
   useEffect(() => {
     if (shows && pages.currentPage !== 1) {
       let temp = showsList;
@@ -21,6 +22,7 @@ function Home() {
     }
   }, [shows, pages]);
 
+  // Fetch shows depending on query
   const fetchShows = async (queryPage) => {
     try {
       await dispatch(
@@ -35,6 +37,7 @@ function Home() {
     }
   };
 
+  // Handle scrolling down
   const handleInfiniteOnLoad = () => {
     if (pages.total_pages === pages.currentPage) {
       message.warning({
