@@ -2,6 +2,9 @@
 
 At NVC Software we are developing new projects that integrate with various market applications such as IMDB (Internet Movie Database), for which it is necessary to implement a Proof of Concept (POC) that allows visualizinga novel way, the results of searches on movies in this database.
 
+![movies](https://user-images.githubusercontent.com/28121770/100539428-66bf4080-3204-11eb-8c58-6e3c01de416b.png)
+
+
 1. The module must include an “infinite scroll” control where the user can
 scroll through all results. The software should load
 automatically more results, as the user advances in the scroll.
