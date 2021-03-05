@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/nvc-test/static/css/main.795d19b2.chunk.css",
-    "main.js": "/nvc-test/static/js/main.ad807712.chunk.js",
-    "main.js.map": "/nvc-test/static/js/main.ad807712.chunk.js.map",
+    "main.css": "/nvc-test/static/css/main.84126576.chunk.css",
+    "main.js": "/nvc-test/static/js/main.0a1846b6.chunk.js",
+    "main.js.map": "/nvc-test/static/js/main.0a1846b6.chunk.js.map",
     "runtime-main.js": "/nvc-test/static/js/runtime-main.2f0d8072.js",
     "runtime-main.js.map": "/nvc-test/static/js/runtime-main.2f0d8072.js.map",
     "static/js/2.42eb781e.chunk.js": "/nvc-test/static/js/2.42eb781e.chunk.js",
     "static/js/2.42eb781e.chunk.js.map": "/nvc-test/static/js/2.42eb781e.chunk.js.map",
     "index.html": "/nvc-test/index.html",
-    "static/css/main.795d19b2.chunk.css.map": "/nvc-test/static/css/main.795d19b2.chunk.css.map",
+    "static/css/main.84126576.chunk.css.map": "/nvc-test/static/css/main.84126576.chunk.css.map",
     "static/js/2.42eb781e.chunk.js.LICENSE.txt": "/nvc-test/static/js/2.42eb781e.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.2f0d8072.js",
     "static/js/2.42eb781e.chunk.js",
-    "static/css/main.795d19b2.chunk.css",
-    "static/js/main.ad807712.chunk.js"
+    "static/css/main.84126576.chunk.css",
+    "static/js/main.0a1846b6.chunk.js"
   ]
 }
