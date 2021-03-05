@@ -1,5 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import ShowDetail from './pages/ShowDetail';
@@ -9,10 +14,13 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/detail/:id">
+        <Route exact path="/">
+          <Redirect to="/nvc-test" />
+        </Route>
+        <Route path="/nvc-test/detail/:id">
           <ShowDetail />
         </Route>
-        <Route exact path="/">
+        <Route exact path="/nvc-test">
           <Home />
         </Route>
         <Route path="*">

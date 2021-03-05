@@ -28,7 +28,7 @@ function ShowDetail() {
     try {
       dispatch(
         getDetail({
-          showId: url.split('/')[2],
+          showId: url.split('/')[3],
           mediaType: selectedShow.media_type
         })
       );

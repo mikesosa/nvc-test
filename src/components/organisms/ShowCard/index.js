@@ -18,7 +18,7 @@ function ShowCard({ item }) {
   // Handle click on show
   const handleClick = async (show) => {
     await dispatch(setSelectedShow(show));
-    history.push(`${path}detail/${show.id}`);
+    history.push(`${path}/detail/${show.id}`);
   };
 
   return (
