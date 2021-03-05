@@ -18,16 +18,16 @@ function HeaderNav() {
 
   // Handle search
   const onSearch = (value) => {
-    if (path !== '/') history.push('/');
+    if (path !== '/') history.push('/nvc-test');
     if (value) dispatch(getShows({ searchQuery: value, searchPage: 1 }));
   };
 
   return (
     <Header className="header-nav">
       <div className="logo">
-        <a href="/">SHOWS</a>
-        {path !== '/' && (
-          <a href="/" className="return-btn">
+        <a href="/nvc-test">SHOWS</a>
+        {path !== '/nvc-test' && (
+          <a href="/nvc-test" className="return-btn">
             <LeftCircleOutlined />
           </a>
         )}
